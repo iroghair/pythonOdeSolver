@@ -4,7 +4,7 @@ from odeintegrator import myodeint
 import matplotlib.pyplot as plt
 
 
-def myODEfunc(y,t,k=0.2):
+def myODEfunc(y,t,k=0.1):
     dydt = -k*y
 
     return dydt
@@ -14,15 +14,15 @@ def myODEfunc(y,t,k=0.2):
 init0 = 1
 
 # Time steps
-steps = np.arange(0, 10, 0.1) # Move out of iteration loop
+steps = np.linspace(0, 10, num=11) # Move out of iteration loop
 
 # Other parameters
 k = 0.3
 
 # ODE Solver
-sol = myodeint(myODEfunc, init0, steps)
+span,sol = myodeint(myODEfunc, init0, steps, solver='Fehlberg')
 
-plt.plot(steps, sol)
+plt.plot(span, sol, marker="o")
 # plt.legend(loc='best')
 plt.xlabel('Time [s]')
 plt.ylabel('Concentration')
